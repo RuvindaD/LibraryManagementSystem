@@ -1,0 +1,192 @@
+//CREATE DATABASE AND TABLES
+******************************************************************
+DROP DATABASE IF EXISTS Library;
+CREATE DATABASE Library;
+USE Library;
+
+CREATE TABLE Users(
+	UserID VARCHAR(6) PRIMARY KEY,
+	UserName VARCHAR(30) UNIQUE NOT NULL,
+	Password VARCHAR(10) NOT NULL,
+	Role VARCHAR(20) NOT NULL
+	
+);
+
+CREATE TABLE BookCategories(
+	CategoryID VARCHAR(8) PRIMARY KEY,
+      CategoryName VARCHAR(50) NOT NULL,
+	 CategoryDescription VARCHAR(255)
+);
+
+CREATE TABLE Books(
+BookID VARCHAR(8) PRIMARY KEY,
+Title VARCHAR(100) NOT NULL,                   
+Author VARCHAR(100) NOT NULL,
+CategoryID VARCHAR(8),
+CopiesAvailable INT NOT NULL,
+Price DECIMAL(10,2) NOT NULL,
+Medium VARCHAR(20) NOT NULL,
+Publisher VARCHAR(20) NOT NULL,
+FirstAuthor VARCHAR(100), 
+CopiesInHand INT                  
+                           
+FOREIGN KEY(CategoryID) REFERENCES BookCategories(CategoryID)
+);
+
+CREATE TABLE Members(
+ MemberID VARCHAR(8) PRIMARY KEY,
+ Title VARCHAR(5) NOT NULL,
+ FirstName VARCHAR(50) NOT NULL,                   
+ LastName VARCHAR(50)  NOT NULL,                   
+ DOB VARCHAR(12) NOT NULL,                                  
+ Address VARCHAR(150) NOT NULL,                               
+ PhoneNumber VARCHAR(15),                              
+ Email VARCHAR(100) UNIQUE,           
+ MembershipStartDate DATE NOT NULL                   
+);
+
+CREATE TABLE transactions (
+    TransactionID VARCHAR(8) PRIMARY KEY,
+    MemberID VARCHAR(8),
+    BookID VARCHAR(8),
+    BorrowDate DATE NOT NULL,
+    DueDate DATE NOT NULL,
+    ReturnDate DATE NOT NULL,
+    FineAmount DECIMAL(10,2) NULL DEFAULT 0.00
+);
+    
+CREATE TABLE borrowing (
+    TransactionID VARCHAR(8) PRIMARY KEY,
+    MemberID VARCHAR(8),
+    BorrowDate DATE NOT NULL
+    );
+CREATE TABLE borrowingDetails (
+    TransactionID VARCHAR(8) PRIMARY KEY,
+    BookID varchar(20) NOT NULL,
+    DueDate DATE NOT NULL
+    );
+**************************************************************************
+//ADD DATA TO BOOKCATEGORIES
+INSERT INTO BookCategories VALUES('C001', 'Children',' Fiction Books written for children');
+INSERT INTO BookCategories VALUES('C002','Mystery',' Fiction Books contain about solving a mystery or crime');
+INSERT INTO BookCategories VALUES('C003', 'Romance',' Fiction Books about romantic relationships');
+INSERT INTO BookCategories VALUES('C004','Science Fiction', ' Fiction Books about scientific and future related ideas and events');
+INSERT INTO BookCategories VALUES('C005','Historical Fiction',
+' Fiction Books about historical events');
+INSERT INTO BookCategories VALUES('C006', 'Horror',' Fiction Books that is intended to disturb, frighten or scare');
+INSERT INTO BookCategories VALUES('C007','Mystery',' Fiction Books contain about solving a mystery or crime');
+INSERT INTO BookCategories VALUES('C008', 'Romance', ' Fiction Books about romantic relationships');
+INSERT INTO BookCategories VALUES('C009','Science Fiction', ' Fiction Books about scientific and future related ideas and events');
+INSERT INTO BookCategories VALUES('C010','Leisure & Travel', ' Non Fiction Books about leisure and travel related activities');
+INSERT INTO BookCategories VALUES('C011','AutoBiography & Biogrphy',' Non Fiction Books about the life of real world individuals');
+INSERT INTO BookCategories VALUES('C012','Science & Technology',' Non Fiction Books about the scientific and technological things and concepts');
+INSERT INTO BookCategories VALUES('C013','Health & Wellness',' Non Fiction Books about the health and medical related things and concepts');
+INSERT INTO BookCategories VALUES('C014','Business & Economy',' Non Fiction Books about the bussiness and economy related  things and concepts');
+INSERT INTO BookCategories VALUES('C015','Education',' Non Fiction Books about the learning and study related  things and concepts');
+INSERT INTO BookCategories VALUES('C016','Religious & Spiritual',' Non Fiction Books about the religious and spiritual related  things and concepts');
+INSERT INTO BookCategories VALUES('C017','Commics',' Books that use pictures and graphics to tell stories');
+INSERT INTO BookCategories VALUES('C018','Poetry and Drama',' Books that contains poems, plays and dramas');
+INSERT INTO BookCategories VALUES('C019','Magazines & Periodicals',' Non Fiction Books about the various topics related to  day to day lives and concepts');
+INSERT INTO BookCategories VALUES('C020','Audio & Ebooks',' Books that are available in electronic media');
+
+**********************************************************************************************************************************************
+1.	UPDATE bookcategories SET CategoryID='CHI' WHERE CategoryName='Children';
+2.	UPDATE bookcategories SET CategoryID='MYS' WHERE CategoryName='Mystery';
+3.	UPDATE bookcategories SET CategoryID='ROM' WHERE CategoryName='Romance';
+4.	UPDATE bookcategories SET CategoryID='SCIFI' WHERE CategoryName='Science Fiction';
+5.	UPDATE bookcategories SET CategoryID='HISTFI' WHERE CategoryName='Historical Fiction';
+6.	UPDATE bookcategories SET CategoryID='HOR' WHERE CategoryName='Horror';
+7.	UPDATE bookcategories SET CategoryID='LEITR' WHERE CategoryName='Leisure & Travel';
+8.	UPDATE bookcategories SET CategoryID='BIO' WHERE CategoryName='AutoBiography & Biography';
+9.	UPDATE bookcategories SET CategoryID='SCT' WHERE CategoryName='Science & Technology';
+10.	UPDATE bookcategories SET CategoryID='HEA' WHERE CategoryName='Health & Wellness';
+11.	UPDATE bookcategories SET CategoryID='BECON' WHERE CategoryName='Business & Economy';
+12.	UPDATE bookcategories SET CategoryID='EDU' WHERE CategoryName='Education';
+13.	UPDATE bookcategories SET CategoryID='RELI' WHERE CategoryName='Religious & Spiritual';
+14.	UPDATE bookcategories SET CategoryID='COMMIC' WHERE CategoryName='Commics';
+15.	UPDATE bookcategories SET CategoryID='POETDR' WHERE CategoryName='Poetry and Drama';
+16.	UPDATE bookcategories SET CategoryID='MAGPR' WHERE CategoryName='Magazines & Periodicals';
+
+17.	UPDATE bookcategories SET CategoryID='AUDEB' WHERE CategoryName='Audio & Ebooks'
+**************************************************************************************************************************
+//ADD DATA INTO MEMBERS
+INSERT INTO Members 
+(MemberID, Title, FirstName, LastName, DOB, Address, PhoneNumber, Email, MembershipStartDate) 
+VALUES 
+('M001', 'Mr', 'Sunil', 'Danapala', '1981-02-06', 'No.20 Walana, Panadura', '0382290845', 'sunil12@gmail.com', '2000-03-21');
+
+INSERT INTO Members 
+(MemberID, Title, FirstName, LastName, DOB, Address, PhoneNumber, Email, MembershipStartDate) 
+VALUES 
+('M002','Mr','Sarath','Gunapala','1982-8-12','No 200,Thalpitiya,Wadduwa',0382290567,'sarath82@gmail.com', '2000-03-21');
+
+INSERT INTO Members 
+(MemberID, Title, FirstName, LastName, DOB, Address, PhoneNumber, Email, MembershipStartDate) 
+VALUES
+('M003','Mr','Ajith','Amarapala','1988-1-2', 'No 100,Horawala,Matugama',0345567189,'ajith88@gmail.com', '2000-5-18');
+
+
+INSERT INTO Members 
+(MemberID, Title, FirstName, LastName, DOB, Address, PhoneNumber, Email, MembershipStartDate) 
+VALUES
+('M004','Mr','Sajith','Somapala','1952-1-2', 'No 10, Galaniigama,Bandaragama',0382245679,'NULL', '2000-5-18');
+
+INSERT INTO Members 
+(MemberID, Title, FirstName, LastName, DOB, Address, PhoneNumber, Email, MembershipStartDate) 
+VALUES ('M005', 'Mr','Ranil','Jinapala','1974-1-8', 'No.34,Ginthota,Aluthgama',0779919108,'ranil74@gmail.com', '2000-6-24');
+INSERT INTO Members 
+(MemberID, Title, FirstName, LastName, DOB, Address, PhoneNumber, Email, MembershipStartDate) 
+VALUES ('M006', 'Mr', 'Ranil', 'Jinapala', '1974-01-08', 'No.34, Ginthota, Aluthgama', '0779919108', 'ranil74@gmail.com', '2000-06-24');
+*********************************************************************************************************
+// ADD DATA INTO BOOKS
+INSERT INTO Books 
+(BookID, Title, Author, CategoryID, CopiesAvailable, Price, Medium, Publisher, FirstAuthor, CopiesInHand) 
+VALUES 
+('B011', 'Vidya Katha', 'Nandasiri Jayaweera', 'SCT', 3, 350.00, 'Sinhala', 'Sarasavi Publishers', 'NULL', 2),
+('B010', 'A Brief History of Time', 'Stephen Hawking', 'SCT', 2, 2000.00, 'English', 'Bantam', 'NULL', 2);
+
+INSERT INTO Books 
+(BookID, Title, Author, CategoryID, CopiesAvailable, Price, Medium, Publisher, FirstAuthor, CopiesInHand) 
+VALUES 
+('B009', 'Vidya Katha', 'Nandasiri Jayaweera', 'SCT', 3, 350.00, 'Sinhala', 'Sarasavi Publishers', 'NULL', 2),
+('B008', 'A Brief History of Time', 'Stephen Hawking', 'SCT', 2, 2000.00, 'English', 'Bantam', 'NULL', 1);
+
+INSERT INTO Books 
+(BookID, Title, Author, CategoryID, CopiesAvailable, Price, Medium, Publisher, FirstAuthor, CopiesInHand) 
+VALUES 
+('B007', 'Upanda Sita', 'Martin Wickramasingha', 'ABIO', 3, 600.00, 'Sinhala', 'Sooriya Publishers', 'NULL', 3),
+('B006', 'The Diary of a Young Girl', 'Anne Frank', 'ABIO', 2, 1000.00, 'English', 'Bantam', 'Peter David', 2);
+
+INSERT INTO Books 
+(BookID, Title, Author, CategoryID, CopiesAvailable, Price, Medium, Publisher, FirstAuthor, CopiesInHand) 
+VALUES 
+('B005', 'Sri Lanka Sancharaya', 'Dinesh Kumara', 'LEITR', 3, 500.00, 'Sinhala', 'S. Godage & Brothers', 'NULL', 3),
+('B004', 'Lonely Planet: Sri Lanka', 'Ryan Ver Bermokes', 'LEITR', 2, 1200.00, 'English', 'Lonely Planet', 'NULL',2);
+
+INSERT INTO Books 
+(BookID, Title, Author, CategoryID, CopiesAvailable, Price, Medium, Publisher, FirstAuthor, CopiesInHand) 
+VALUES 
+('B003', 'The Shining', 'Stephen King', 'HOR', 3, 1500.00, 'English', 'Doubleday', 'NULL', 2);
+
+
+INSERT INTO Books 
+(BookID, Title, Author, CategoryID, CopiesAvailable, Price, Medium, Publisher, FirstAuthor, CopiesInHand) 
+VALUES 
+('B002', 'Dune', 'Frank Herbert', 'SCIFI', 3, 2000.00, 'English', 'Ace Books', 'NULL', 3);
+INSERT INTO Books 
+(BookID, Title, Author, CategoryID, CopiesAvailable, Price, Medium, Publisher, FirstAuthor, CopiesInHand) 
+VALUES 
+***************************************************************************************************
+// ADD DATA INTO TRANSACTIONS 
+
+INSERT INTO Transactions (TransactionID, MemberID, BookID, BorrowDate, DueDate, ReturnDate, FineAmount) VALUES
+('T003', 'M002', 'B002', '2024-07-01', '2024-07-15', '2024-07-10', '0.00'),
+('T002', 'M004', 'B004', '2024-07-02', '2024-07-16', '2024-07-12', '0.00');
+**************************************************************************************************
+
+//ADD DATA INTO BORROWING
+INSERT INTO Borrowing (TransactionID, MemberID, BorrowDate) VALUES
+('T003', 'M002', '2024-07-01'),
+('T002', 'M004', '2024-07-02');
+
+
